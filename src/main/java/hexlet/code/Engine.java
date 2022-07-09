@@ -35,6 +35,16 @@ public class Engine {
         return random.nextInt(maxRandomNumber);
     }
 
+    /**
+     * @param from from inclusive
+     * @param to to exclusive
+     * @return random number in range from..to
+     */
+    public int getRandomNumber(int from, int to) {
+        return random.nextInt(from, to);
+    }
+
+
     private String getYourAnswerMessage() {
         return "Your answer: ";
     }
@@ -42,6 +52,7 @@ public class Engine {
     public void showMessage(String message) {
         System.out.println(message);
     }
+
     public void showWrongAnswerMessage(String correctAnswer, String userAnswer) {
         String message = "'"
                 + userAnswer + "' is wrong answer ;(. Correct answer was '"
@@ -51,7 +62,8 @@ public class Engine {
                 + "Let's try again, " + userName + "!";
         showMessage(message);
     }
-    public void showGameWinMessage(){
+
+    public void showGameWinMessage() {
         showMessage("Congratulations, " + userName + "!");
     }
 
