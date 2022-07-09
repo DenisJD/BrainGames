@@ -1,0 +1,19 @@
+Game
+- show greetings
+- ask user name
+- save user name
+
+- show initial message (rules, what to do)
+- start game cycle
+- ask question using randomizer
+- wait user answer
+
+- check answer
+- if answer is correct - show correct answer message and continue game or show congrats message and finish the game
+- if answer is wrong - show wrong answer message and finish the game
+
+Game should:
+- provide messages to engine
+- provide questions texts
+- check answers
+- check continue game conditions

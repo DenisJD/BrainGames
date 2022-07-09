@@ -1,5 +1,6 @@
 package hexlet.code;
 
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -25,11 +26,21 @@ public class Engine {
         System.out.println("Hello, " + userName + "!");
     }
 
+    public String askUserAnswer() {
+        System.out.print(getYourAnswerMessage());
+        return scanner.nextLine();
+    }
+
     public String getUserName() {
         return userName;
     }
 
     public int getRandomNumber() {
-        return random.nextInt(100);
+        int maxRandomNumber = 100;
+        return random.nextInt(maxRandomNumber);
+    }
+
+    private String getYourAnswerMessage() {
+        return "Your answer: ";
     }
 }

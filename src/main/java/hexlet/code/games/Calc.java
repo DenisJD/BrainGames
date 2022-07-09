@@ -3,20 +3,17 @@ package hexlet.code.games;
 import hexlet.code.Engine;
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class Calc {
 
     private final Engine engine;
-    private final Scanner scanner;
 
     private final int MAX_CORRECT = 3;
     private int countCorrect = 0;
     private boolean hasNoWrongAnswer = true;
 
-    public Calc(Engine engine, Scanner scanner) {
+    public Calc(Engine engine) {
         this.engine = engine;
-        this.scanner = scanner;
     }
 
     public void startGame() {
@@ -29,11 +26,9 @@ public class Calc {
             char mathOperator = getMathOperator();
 
             System.out.println(getQuestionMessage(a, b, mathOperator));
-            System.out.print(getYourAnswerMessage());
-
-            int correctAnswer = getCorrectAnswer(a, b, mathOperator);
-            int userAnswer = scanner.nextInt();
-            if (userAnswer == correctAnswer) {
+            String userAnswer = engine.askUserAnswer();
+            String correctAnswer = getCorrectAnswer(a, b, mathOperator);
+            if (userAnswer.equals(correctAnswer)) {
                 processCorrectAnswer();
             } else {
                 processWrongAnswer(userAnswer, correctAnswer);
@@ -41,7 +36,7 @@ public class Calc {
         }
     }
 
-    private void processWrongAnswer(int userAnswer, int correctAnswer) {
+    private void processWrongAnswer(String userAnswer, String correctAnswer) {
         System.out.println(getWrongAnswerMessage(correctAnswer, userAnswer));
         hasNoWrongAnswer = false;
     }
@@ -54,7 +49,7 @@ public class Calc {
         }
     }
 
-    private String getWrongAnswerMessage(int correctAnswer, int userAnswer) {
+    private String getWrongAnswerMessage(String correctAnswer, String userAnswer) {
         return "'" + userAnswer + "' is wrong answer ;(. Correct answer was '" + correctAnswer + "'" + "\n" +
                 "Let's try again, " + engine.getUserName() + "!";
     }
@@ -63,7 +58,7 @@ public class Calc {
         return countCorrect < MAX_CORRECT && hasNoWrongAnswer;
     }
 
-    private int getCorrectAnswer(int a, int b, char mathOperator) {
+    private String getCorrectAnswer(int a, int b, char mathOperator) {
         int correctAnswer = 0;
         if (mathOperator == '+') {
             correctAnswer = a + b;
@@ -72,7 +67,7 @@ public class Calc {
         } else if (mathOperator == '*') {
             correctAnswer = a * b;
         }
-        return correctAnswer;
+        return String.valueOf(correctAnswer);
     }
 
     private char getMathOperator() {
@@ -85,9 +80,5 @@ public class Calc {
 
     private String getQuestionMessage(int a, int b, char mathOperator) {
         return "Question: " + a + " " + mathOperator + " " + b;
-    }
-
-    private String getYourAnswerMessage() {
-        return "Your answer: ";
     }
 }
