@@ -2,6 +2,7 @@ package hexlet.code;
 
 import hexlet.code.games.Calc;
 import hexlet.code.games.Even;
+import hexlet.code.games.GCD;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -11,7 +12,7 @@ public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String firstMessage = "Please enter the game number and press Enter.";
-        String chooseGame = "1 - Greet\n2 - Even\n3 - Calc\n0 - Exit";
+        String chooseGame = "1 - Greet\n2 - Even\n3 - Calc\n4 - GCD\n0 - Exit";
         System.out.println(firstMessage);
         System.out.println(chooseGame);
 
@@ -29,6 +30,10 @@ public class App {
             case "3" -> {
                 Engine engine = new Engine(scanner, new Random());
                 new Calc(engine).startGame();
+            }
+            case "4" -> {
+                Engine engine = new Engine(scanner, new Random());
+                new GCD(engine).startGame();
             }
             default -> {
             }
