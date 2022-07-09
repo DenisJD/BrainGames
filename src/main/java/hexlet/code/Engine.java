@@ -43,4 +43,8 @@ public class Engine {
     private String getYourAnswerMessage() {
         return "Your answer: ";
     }
+
+    public void showMessage(String message) {
+        System.out.println(message);
+    }
 }

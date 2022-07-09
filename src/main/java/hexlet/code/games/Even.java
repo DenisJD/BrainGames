@@ -15,12 +15,12 @@ public class Even {
 
     public void startGame() {
         engine.greetUser();
-        System.out.println(getGameRulesMessage());
+        engine.showMessage(getGameRulesMessage());
         countCorrect = 0;
 
         while (shouldContinueGame()) {
             int randomNumber = engine.getRandomNumber();
-            System.out.println(getQuestionMessage(randomNumber));
+            engine.showMessage(getQuestionMessage(randomNumber));
 
             String userAnswer = engine.askUserAnswer();
             String correctAnswer = getCorrectAnswer(randomNumber);
@@ -33,7 +33,7 @@ public class Even {
     }
 
     private void processWrongAnswer(String correctAnswer, String userAnswer) {
-        System.out.println(getWrongAnswerMessage(correctAnswer, userAnswer));
+        engine.showMessage(getWrongAnswerMessage(correctAnswer, userAnswer));
         hasNoWrongAnswer = false;
     }
 
@@ -56,9 +56,9 @@ public class Even {
 
     private void processCorrectAnswer() {
         countCorrect++;
-        System.out.println("Correct!");
+        engine.showMessage("Correct!");
         if (countCorrect == MAX_CORRECT) {
-            System.out.println("Congratulations, " + engine.getUserName() + "!");
+            engine.showMessage("Congratulations, " + engine.getUserName() + "!");
         }
     }
 

@@ -18,14 +18,14 @@ public class Calc {
 
     public void startGame() {
         engine.greetUser();
-        System.out.println(getGameRulesMessage());
+        engine.showMessage(getGameRulesMessage());
         countCorrect = 0;
         while (shouldContinueGame()) {
             int a = engine.getRandomNumber();
             int b = engine.getRandomNumber();
             char mathOperator = getMathOperator();
 
-            System.out.println(getQuestionMessage(a, b, mathOperator));
+            engine.showMessage(getQuestionMessage(a, b, mathOperator));
             String userAnswer = engine.askUserAnswer();
             String correctAnswer = getCorrectAnswer(a, b, mathOperator);
             if (userAnswer.equals(correctAnswer)) {
@@ -37,15 +37,15 @@ public class Calc {
     }
 
     private void processWrongAnswer(String userAnswer, String correctAnswer) {
-        System.out.println(getWrongAnswerMessage(correctAnswer, userAnswer));
+        engine.showMessage(getWrongAnswerMessage(correctAnswer, userAnswer));
         hasNoWrongAnswer = false;
     }
 
     private void processCorrectAnswer() {
         countCorrect++;
-        System.out.println("Correct!");
+        engine.showMessage("Correct!");
         if (countCorrect == MAX_CORRECT) {
-            System.out.println("Congratulations, " + engine.getUserName() + "!");
+            engine.showMessage("Congratulations, " + engine.getUserName() + "!");
         }
     }
 
