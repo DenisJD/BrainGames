@@ -1,0 +1,7 @@
+ext.pathMapper = [:]
+ext.pathMapper.put('C:/java/IntelliJ IDEA/lib/external-system-rt.jar', '/mnt/c/java/IntelliJ IDEA/lib/external-system-rt.jar')
+ext.pathMapper.put('C:/java/IntelliJ IDEA/lib/util.jar', '/mnt/c/java/IntelliJ IDEA/lib/util.jar')
+ext.pathMapper.put('C:/java/IntelliJ IDEA/plugins/gradle/lib/gradle-tooling-extension-impl.jar', '/mnt/c/java/IntelliJ IDEA/plugins/gradle/lib/gradle-tooling-extension-impl.jar')
+ext.pathMapper.put('C:/java/IntelliJ IDEA/lib/3rd-party-rt.jar', '/mnt/c/java/IntelliJ IDEA/lib/3rd-party-rt.jar')
+ext.pathMapper.put("<<target java executable path>>", '/usr/lib/jvm/java-17-openjdk-amd64/bin/java')
+ext.mapPath = { path -> pathMapper.get(path) ?: path }
