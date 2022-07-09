@@ -1,6 +1,5 @@
 package hexlet.code;
 
-
 import java.util.Random;
 import java.util.Scanner;
 
@@ -31,10 +30,6 @@ public class Engine {
         return scanner.nextLine();
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
     public int getRandomNumber() {
         int maxRandomNumber = 100;
         return random.nextInt(maxRandomNumber);
@@ -46,5 +41,21 @@ public class Engine {
 
     public void showMessage(String message) {
         System.out.println(message);
+    }
+    public void showWrongAnswerMessage(String correctAnswer, String userAnswer) {
+        String message = "'"
+                + userAnswer + "' is wrong answer ;(. Correct answer was '"
+                + correctAnswer
+                + "'"
+                + "\n"
+                + "Let's try again, " + userName + "!";
+        showMessage(message);
+    }
+    public void showGameWinMessage(){
+        showMessage("Congratulations, " + userName + "!");
+    }
+
+    public void showCorrectAnswerMessage() {
+        showMessage("Correct!");
     }
 }

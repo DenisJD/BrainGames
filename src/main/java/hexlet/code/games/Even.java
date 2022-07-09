@@ -33,7 +33,7 @@ public class Even {
     }
 
     private void processWrongAnswer(String correctAnswer, String userAnswer) {
-        engine.showMessage(getWrongAnswerMessage(correctAnswer, userAnswer));
+        engine.showWrongAnswerMessage(correctAnswer, userAnswer);
         hasNoWrongAnswer = false;
     }
 
@@ -45,20 +45,11 @@ public class Even {
         return "Question: " + number;
     }
 
-    private String getWrongAnswerMessage(String correctAnswer, String userAnswer) {
-        return "'"
-                + userAnswer + "' is wrong answer ;(. Correct answer was '"
-                + correctAnswer
-                + "'"
-                + "\n"
-                + "Let's try again, " + engine.getUserName() + "!";
-    }
-
     private void processCorrectAnswer() {
         countCorrect++;
-        engine.showMessage("Correct!");
+        engine.showCorrectAnswerMessage();
         if (countCorrect == MAX_CORRECT) {
-            engine.showMessage("Congratulations, " + engine.getUserName() + "!");
+            engine.showGameWinMessage();
         }
     }
 

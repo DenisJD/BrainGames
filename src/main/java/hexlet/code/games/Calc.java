@@ -37,21 +37,16 @@ public class Calc {
     }
 
     private void processWrongAnswer(String userAnswer, String correctAnswer) {
-        engine.showMessage(getWrongAnswerMessage(correctAnswer, userAnswer));
+        engine.showWrongAnswerMessage(correctAnswer, userAnswer);
         hasNoWrongAnswer = false;
     }
 
     private void processCorrectAnswer() {
         countCorrect++;
-        engine.showMessage("Correct!");
+        engine.showCorrectAnswerMessage();
         if (countCorrect == MAX_CORRECT) {
-            engine.showMessage("Congratulations, " + engine.getUserName() + "!");
+            engine.showGameWinMessage();
         }
-    }
-
-    private String getWrongAnswerMessage(String correctAnswer, String userAnswer) {
-        return "'" + userAnswer + "' is wrong answer ;(. Correct answer was '" + correctAnswer + "'" + "\n" +
-                "Let's try again, " + engine.getUserName() + "!";
     }
 
     private boolean shouldContinueGame() {
