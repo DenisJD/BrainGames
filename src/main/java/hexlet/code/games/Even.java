@@ -4,8 +4,8 @@ import hexlet.code.Engine;
 
 public class Even {
     private final Engine engine;
-    private int countCorrect = 0;
     private final int MAX_CORRECT = 3;
+    private int countCorrect = 0;
     private boolean hasNoWrongAnswer = true;
 
     public Even(Engine engine) {
@@ -29,9 +29,8 @@ public class Even {
         }
     }
 
-    private void processWrongAnswer(String correctAnswer, String userAnswer) {
-        engine.showWrongAnswerMessage(correctAnswer, userAnswer);
-        hasNoWrongAnswer = false;
+    private String getGameRulesMessage() {
+        return "Answer 'yes' if number even otherwise answer 'no'.";
     }
 
     private boolean shouldContinueGame() {
@@ -42,6 +41,10 @@ public class Even {
         return "Question: " + number;
     }
 
+    private String getCorrectAnswer(int number) {
+        return (number % 2 == 0) ? "yes" : "no";
+    }
+
     private void processCorrectAnswer() {
         countCorrect++;
         engine.showCorrectAnswerMessage();
@@ -50,11 +53,8 @@ public class Even {
         }
     }
 
-    private String getCorrectAnswer(int number) {
-        return (number % 2 == 0) ? "yes" : "no";
-    }
-
-    private String getGameRulesMessage() {
-        return "Answer 'yes' if number even otherwise answer 'no'.";
+    private void processWrongAnswer(String correctAnswer, String userAnswer) {
+        engine.showWrongAnswerMessage(correctAnswer, userAnswer);
+        hasNoWrongAnswer = false;
     }
 }

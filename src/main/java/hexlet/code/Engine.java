@@ -4,10 +4,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Engine {
-
     private final Scanner scanner;
     private final Random random;
-
     private String userName = "";
 
     public Engine(Scanner scanner, Random random) {
@@ -17,11 +15,11 @@ public class Engine {
 
     public void greetUser() {
         String welcomeMessage = "\nWelcome to the Brain Games!";
-        System.out.println(welcomeMessage);
+        showMessage(welcomeMessage);
         String message = "May I have your name? ";
         System.out.print(message);
         userName = scanner.nextLine();
-        System.out.println("Hello, " + userName + "!");
+        showMessage("Hello, " + userName + "!");
     }
 
     public String askUserAnswer() {
@@ -29,28 +27,16 @@ public class Engine {
         return scanner.nextLine();
     }
 
-    public int getRandomNumber() {
-        int maxRandomNumber = 100;
-        return random.nextInt(maxRandomNumber);
-    }
-
-    /**
-     * @param from from inclusive
-     * @param to to exclusive
-     * @return random number in range from..to
-     */
-
-    public int getRandomNumber(int from, int to) {
-        return random.nextInt(from, to);
-    }
-
-
     private String getYourAnswerMessage() {
         return "Your answer: ";
     }
 
     public void showMessage(String message) {
         System.out.println(message);
+    }
+
+    public void showCorrectAnswerMessage() {
+        showMessage("Correct!");
     }
 
     public void showWrongAnswerMessage(String correctAnswer, String userAnswer) {
@@ -67,7 +53,17 @@ public class Engine {
         showMessage("Congratulations, " + userName + "!");
     }
 
-    public void showCorrectAnswerMessage() {
-        showMessage("Correct!");
+    public int getRandomNumber() {
+        int maxRandomNumber = 100;
+        return random.nextInt(maxRandomNumber);
+    }
+
+    /**
+     * @param from from inclusive
+     * @param to   to exclusive
+     * @return random number in range from...to
+     */
+    public int getRandomNumber(int from, int to) {
+        return random.nextInt(from, to);
     }
 }

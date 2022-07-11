@@ -1,6 +1,10 @@
 package hexlet.code;
 
-import hexlet.code.games.*;
+import hexlet.code.games.Even;
+import hexlet.code.games.Calc;
+import hexlet.code.games.GCD;
+import hexlet.code.games.Progression;
+import hexlet.code.games.Prime;
 
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
@@ -11,13 +15,16 @@ public class App {
         getChooseGameMessage();
         chooseGame();
     }
-    public static void getFirstMessage(){
-        System.out.println("Please enter the game number and press Enter.");;
+
+    public static void getFirstMessage() {
+        System.out.println("Please enter the game number and press Enter.");
     }
-    public static void getChooseGameMessage(){
+
+    public static void getChooseGameMessage() {
         System.out.println("1 - Greet\n2 - Even\n3 - Calc\n4 - GCD\n5 - Progression\n6 - Prime\n0 - Exit");
     }
-    public static void chooseGame(){
+
+    public static void chooseGame() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Your choice: ");
         String choice = scanner.nextLine();

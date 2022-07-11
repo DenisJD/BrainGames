@@ -5,11 +5,9 @@ import org.apache.commons.lang3.StringUtils;
 
 public class Progression {
     private final Engine engine;
-    private int countCorrect = 0;
     private final int MAX_CORRECT = 3;
+    private int countCorrect = 0;
     private boolean hasNoWrongAnswer = true;
-    private final String HIDDEN_NUMBER = "..";
-    private final String DELIMITER = " ";
 
     public Progression(Engine engine) {
         this.engine = engine;
@@ -23,7 +21,7 @@ public class Progression {
             int[] progression = createProgression();
             int hideNumberIndex = engine.getRandomNumber(0, progression.length);
             String correctAnswer = String.valueOf(progression[hideNumberIndex]);
-            engine.showMessage(getQuestionMessage(progression,hideNumberIndex));
+            engine.showMessage(getQuestionMessage(progression, hideNumberIndex));
             String userAnswer = engine.askUserAnswer();
             if (userAnswer.equals(correctAnswer)) {
                 processCorrectAnswer();
@@ -31,7 +29,6 @@ public class Progression {
                 processWrongAnswer(userAnswer, correctAnswer);
             }
         }
-
     }
 
     private int[] createProgression() {
@@ -46,17 +43,28 @@ public class Progression {
         return progression;
     }
 
+    private String getGameRulesMessage() {
+        return "What number is missing in the progression?";
+    }
+
+    private boolean shouldContinueGame() {
+        return countCorrect < MAX_CORRECT && hasNoWrongAnswer;
+    }
+
     private String getProgressionForQuestion(int[] progression, int hideNumberIndex) {
         Object[] stringProgression = new String[progression.length];
         for (int i = 0; i < progression.length; i++) {
             stringProgression[i] = String.valueOf(progression[i]);
         }
+        String HIDDEN_NUMBER = "..";
         stringProgression[hideNumberIndex] = HIDDEN_NUMBER;
+        String DELIMITER = " ";
         return StringUtils.joinWith(DELIMITER, stringProgression);
     }
 
-    private String getGameRulesMessage() {
-        return "What number is missing in the progression?";
+    private String getQuestionMessage(int[] progression, int hideNumberIndex) {
+        String progressionString = getProgressionForQuestion(progression, hideNumberIndex);
+        return "Question: " + progressionString;
     }
 
     private void processCorrectAnswer() {
@@ -70,14 +78,5 @@ public class Progression {
     private void processWrongAnswer(String userAnswer, String correctAnswer) {
         engine.showWrongAnswerMessage(correctAnswer, userAnswer);
         hasNoWrongAnswer = false;
-    }
-
-    private boolean shouldContinueGame() {
-        return countCorrect < MAX_CORRECT && hasNoWrongAnswer;
-    }
-
-    private String getQuestionMessage(int[] progression, int hideNumberIndex) {
-        String progressionString = getProgressionForQuestion(progression, hideNumberIndex);
-        return "Question: " + progressionString;
     }
 }

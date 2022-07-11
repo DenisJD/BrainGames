@@ -4,8 +4,8 @@ import hexlet.code.Engine;
 
 public class GCD {
     private final Engine engine;
-    private int countCorrect = 0;
     private final int MAX_CORRECT = 3;
+    private int countCorrect = 0;
     private boolean hasNoWrongAnswer = true;
 
     public GCD(Engine engine) {
@@ -17,8 +17,8 @@ public class GCD {
         engine.showMessage(getGameRulesMessage());
         countCorrect = 0;
         while (shouldContinueGame()) {
-            int a = engine.getRandomNumber();
-            int b = engine.getRandomNumber();
+            int a = engine.getRandomNumber(2, 100);
+            int b = engine.getRandomNumber(2, 100);
             engine.showMessage(getQuestionMessage(a, b));
             String userAnswer = engine.askUserAnswer();
             String correctAnswer = getCorrectAnswer(a, b);
@@ -28,15 +28,18 @@ public class GCD {
                 processWrongAnswer(userAnswer, correctAnswer);
             }
         }
-
-    }
-
-    private String getQuestionMessage(int a, int b) {
-        return "Question: " + a + " " + b;
     }
 
     private String getGameRulesMessage() {
         return "Find the greatest common divisor of given numbers.";
+    }
+
+    private boolean shouldContinueGame() {
+        return countCorrect < MAX_CORRECT && hasNoWrongAnswer;
+    }
+
+    private String getQuestionMessage(int a, int b) {
+        return "Question: " + a + " " + b;
     }
 
     private int getGCD(int a, int b) {
@@ -61,9 +64,5 @@ public class GCD {
     private void processWrongAnswer(String userAnswer, String correctAnswer) {
         engine.showWrongAnswerMessage(correctAnswer, userAnswer);
         hasNoWrongAnswer = false;
-    }
-
-    private boolean shouldContinueGame() {
-        return countCorrect < MAX_CORRECT && hasNoWrongAnswer;
     }
 }

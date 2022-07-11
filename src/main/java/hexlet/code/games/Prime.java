@@ -4,8 +4,8 @@ import hexlet.code.Engine;
 
 public class Prime {
     private final Engine engine;
+    private final int MAX_CORRECT = 3;
     private int countCorrect = 0;
-    private int MAX_CORRECT = 3;
     private boolean hasNoWrongAnswer = true;
 
     public Prime(Engine engine) {
@@ -17,7 +17,7 @@ public class Prime {
         engine.showMessage(getGameRulesMessage());
         countCorrect = 0;
         while (shouldContinueGame()) {
-            int a = engine.getRandomNumber();
+            int a = engine.getRandomNumber(2, 100);
             engine.showMessage(getQuestionMessage(a));
             String userAnswer = engine.askUserAnswer();
             String correctAnswer = getCorrectAnswer(a);
