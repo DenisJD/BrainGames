@@ -18,6 +18,7 @@ public class Progression {
     public void startGame() {
         engine.greetUser();
         engine.showMessage(getGameRulesMessage());
+        countCorrect = 0;
         while (shouldContinueGame()) {
             int[] progression = createProgression();
             int hideNumberIndex = engine.getRandomNumber(0, progression.length);

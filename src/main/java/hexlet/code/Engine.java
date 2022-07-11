@@ -20,7 +20,6 @@ public class Engine {
         System.out.println(welcomeMessage);
         String message = "May I have your name? ";
         System.out.print(message);
-
         userName = scanner.nextLine();
         System.out.println("Hello, " + userName + "!");
     }
@@ -40,6 +39,7 @@ public class Engine {
      * @param to to exclusive
      * @return random number in range from..to
      */
+
     public int getRandomNumber(int from, int to) {
         return random.nextInt(from, to);
     }

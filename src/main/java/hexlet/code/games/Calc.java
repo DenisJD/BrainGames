@@ -2,8 +2,6 @@ package hexlet.code.games;
 
 import hexlet.code.Engine;
 
-import java.util.Random;
-
 public class Calc {
 
     private final Engine engine;
@@ -66,7 +64,7 @@ public class Calc {
     }
 
     private char getMathOperator() {
-        return "+-*".charAt(new Random().nextInt(3));
+        return "+-*".charAt(engine.getRandomNumber(0, 3));
     }
 
     private String getGameRulesMessage() {

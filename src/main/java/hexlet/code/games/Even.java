@@ -3,7 +3,6 @@ package hexlet.code.games;
 import hexlet.code.Engine;
 
 public class Even {
-
     private final Engine engine;
     private int countCorrect = 0;
     private final int MAX_CORRECT = 3;
@@ -17,11 +16,9 @@ public class Even {
         engine.greetUser();
         engine.showMessage(getGameRulesMessage());
         countCorrect = 0;
-
         while (shouldContinueGame()) {
             int randomNumber = engine.getRandomNumber();
             engine.showMessage(getQuestionMessage(randomNumber));
-
             String userAnswer = engine.askUserAnswer();
             String correctAnswer = getCorrectAnswer(randomNumber);
             if (correctAnswer.equals(userAnswer)) {
