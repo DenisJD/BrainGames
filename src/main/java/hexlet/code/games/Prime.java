@@ -1,47 +1,23 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
+import hexlet.code.Utils;
 
 public class Prime {
-    private final Engine engine;
-    private final int MAX_CORRECT = 3;
-    private int countCorrect = 0;
-    private boolean hasNoWrongAnswer = true;
+    public static final int MIN_RANDOM_NUMBER = 2;
+    public static final int MAX_RANDOM_NUMBER = 100;
 
-    public Prime(Engine engine) {
-        this.engine = engine;
-    }
-
-    public void startGame() {
-        engine.greetUser();
-        engine.showMessage(getGameRulesMessage());
-        countCorrect = 0;
-        while (shouldContinueGame()) {
-            int a = engine.getRandomNumber(2, 100);
-            engine.showMessage(getQuestionMessage(a));
-            String userAnswer = engine.askUserAnswer();
+    public static void startGame() {
+        String rulesMessage = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
+        while (Engine.getFlag()) {
+            int a = Utils.getRandomNumber(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
+            String question = String.valueOf(a);
             String correctAnswer = getCorrectAnswer(a);
-            if (userAnswer.equals(correctAnswer)) {
-                processCorrectAnswer();
-            } else {
-                processWrongAnswer(userAnswer, correctAnswer);
-            }
+            Engine.gameProcess(rulesMessage, question, correctAnswer);
         }
     }
 
-    private String getGameRulesMessage() {
-        return "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
-    }
-
-    private boolean shouldContinueGame() {
-        return countCorrect < MAX_CORRECT && hasNoWrongAnswer;
-    }
-
-    private String getQuestionMessage(int a) {
-        return "Question: " + a;
-    }
-
-    private boolean isNumberPrime(int a) {
+    public static boolean isNumberPrime(int a) {
         for (int i = 2; i < a; i++) {
             if (a % i == 0) {
                 return false;
@@ -50,23 +26,10 @@ public class Prime {
         return true;
     }
 
-    private String getCorrectAnswer(int a) {
+    public static String getCorrectAnswer(int a) {
         if (isNumberPrime(a)) {
             return "yes";
         }
         return "no";
-    }
-
-    private void processCorrectAnswer() {
-        countCorrect++;
-        engine.showCorrectAnswerMessage();
-        if (countCorrect == MAX_CORRECT) {
-            engine.showGameWinMessage();
-        }
-    }
-
-    private void processWrongAnswer(String userAnswer, String correctAnswer) {
-        engine.showWrongAnswerMessage(correctAnswer, userAnswer);
-        hasNoWrongAnswer = false;
     }
 }

@@ -1,53 +1,28 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
+import hexlet.code.Utils;
 
 public class Calc {
-    private final Engine engine;
-    private final int MAX_CORRECT = 3;
-    private int countCorrect = 0;
-    private boolean hasNoWrongAnswer = true;
+    public static final int COUNT_MATH_OPERATORS = 3;
 
-    public Calc(Engine engine) {
-        this.engine = engine;
-    }
-
-    public void startGame() {
-        engine.greetUser();
-        engine.showMessage(getGameRulesMessage());
-        countCorrect = 0;
-        while (shouldContinueGame()) {
-            int a = engine.getRandomNumber();
-            int b = engine.getRandomNumber();
+    public static void startGame() {
+        String rulesMessage = "What is the result of the expression?";
+        while (Engine.getFlag()) {
+            int a = Utils.getRandomNumber();
+            int b = Utils.getRandomNumber();
             char mathOperator = getMathOperator();
-            engine.showMessage(getQuestionMessage(a, b, mathOperator));
-            String userAnswer = engine.askUserAnswer();
+            String question = a + " " + mathOperator + " " + b;
             String correctAnswer = getCorrectAnswer(a, b, mathOperator);
-            if (userAnswer.equals(correctAnswer)) {
-                processCorrectAnswer();
-            } else {
-                processWrongAnswer(userAnswer, correctAnswer);
-            }
+            Engine.gameProcess(rulesMessage, question, correctAnswer);
         }
     }
 
-    private String getGameRulesMessage() {
-        return "What is the result of the expression?";
+    public static char getMathOperator() {
+        return "+-*".charAt(Utils.getRandomNumber(0, COUNT_MATH_OPERATORS));
     }
 
-    private boolean shouldContinueGame() {
-        return countCorrect < MAX_CORRECT && hasNoWrongAnswer;
-    }
-
-    private char getMathOperator() {
-        return "+-*".charAt(engine.getRandomNumber(0, 3));
-    }
-
-    private String getQuestionMessage(int a, int b, char mathOperator) {
-        return "Question: " + a + " " + mathOperator + " " + b;
-    }
-
-    private String getCorrectAnswer(int a, int b, char mathOperator) {
+    public static String getCorrectAnswer(int a, int b, char mathOperator) {
         int correctAnswer = 0;
         if (mathOperator == '+') {
             correctAnswer = a + b;
@@ -57,18 +32,5 @@ public class Calc {
             correctAnswer = a * b;
         }
         return String.valueOf(correctAnswer);
-    }
-
-    private void processCorrectAnswer() {
-        countCorrect++;
-        engine.showCorrectAnswerMessage();
-        if (countCorrect == MAX_CORRECT) {
-            engine.showGameWinMessage();
-        }
-    }
-
-    private void processWrongAnswer(String userAnswer, String correctAnswer) {
-        engine.showWrongAnswerMessage(correctAnswer, userAnswer);
-        hasNoWrongAnswer = false;
     }
 }

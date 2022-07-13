@@ -1,68 +1,31 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
+import hexlet.code.Utils;
 
 public class GCD {
-    private final Engine engine;
-    private final int MAX_CORRECT = 3;
-    private int countCorrect = 0;
-    private boolean hasNoWrongAnswer = true;
+    public static final int MIN_RANDOM_NUMBER = 2;
+    public static final int MAX_RANDOM_NUMBER = 100;
 
-    public GCD(Engine engine) {
-        this.engine = engine;
-    }
-
-    public void startGame() {
-        engine.greetUser();
-        engine.showMessage(getGameRulesMessage());
-        countCorrect = 0;
-        while (shouldContinueGame()) {
-            int a = engine.getRandomNumber(2, 100);
-            int b = engine.getRandomNumber(2, 100);
-            engine.showMessage(getQuestionMessage(a, b));
-            String userAnswer = engine.askUserAnswer();
+    public static void startGame() {
+        String rulesMessage = "Find the greatest common divisor of given numbers.";
+        while (Engine.getFlag()) {
+            int a = Utils.getRandomNumber(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
+            int b = Utils.getRandomNumber(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
+            String question = a + " " + b;
             String correctAnswer = getCorrectAnswer(a, b);
-            if (userAnswer.equals(correctAnswer)) {
-                processCorrectAnswer();
-            } else {
-                processWrongAnswer(userAnswer, correctAnswer);
-            }
+            Engine.gameProcess(rulesMessage, question, correctAnswer);
         }
     }
 
-    private String getGameRulesMessage() {
-        return "Find the greatest common divisor of given numbers.";
-    }
-
-    private boolean shouldContinueGame() {
-        return countCorrect < MAX_CORRECT && hasNoWrongAnswer;
-    }
-
-    private String getQuestionMessage(int a, int b) {
-        return "Question: " + a + " " + b;
-    }
-
-    private int getGCD(int a, int b) {
+    public static int getGCD(int a, int b) {
         if (b == 0) {
             return a;
         }
         return getGCD(b, a % b);
     }
 
-    private String getCorrectAnswer(int a, int b) {
+    public static String getCorrectAnswer(int a, int b) {
         return String.valueOf(getGCD(a, b));
-    }
-
-    private void processCorrectAnswer() {
-        countCorrect++;
-        engine.showCorrectAnswerMessage();
-        if (countCorrect == MAX_CORRECT) {
-            engine.showGameWinMessage();
-        }
-    }
-
-    private void processWrongAnswer(String userAnswer, String correctAnswer) {
-        engine.showWrongAnswerMessage(correctAnswer, userAnswer);
-        hasNoWrongAnswer = false;
     }
 }

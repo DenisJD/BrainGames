@@ -1,40 +1,32 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
+import hexlet.code.Utils;
 import org.apache.commons.lang3.StringUtils;
 
 public class Progression {
-    private final Engine engine;
-    private final int MAX_CORRECT = 3;
-    private int countCorrect = 0;
-    private boolean hasNoWrongAnswer = true;
+    public static final int MIN_ARRAY_SIZE = 5;
+    public static final int MAX_ARRAY_SIZE = 11;
+    public static final int MIN_START_NUMBER = 10;
+    public static final int MAX_START_NUMBER = 50;
+    public static final int MIN_DELTA = 3;
+    public static final int MAX_DELTA = 12;
 
-    public Progression(Engine engine) {
-        this.engine = engine;
-    }
-
-    public void startGame() {
-        engine.greetUser();
-        engine.showMessage(getGameRulesMessage());
-        countCorrect = 0;
-        while (shouldContinueGame()) {
+    public static void startGame() {
+        String rulesMessage = "What number is missing in the progression?";
+        while (Engine.getFlag()) {
             int[] progression = createProgression();
-            int hideNumberIndex = engine.getRandomNumber(0, progression.length);
+            int hideNumberIndex = Utils.getRandomNumber(0, progression.length);
+            String question = getQuestionMessage(progression, hideNumberIndex);
             String correctAnswer = String.valueOf(progression[hideNumberIndex]);
-            engine.showMessage(getQuestionMessage(progression, hideNumberIndex));
-            String userAnswer = engine.askUserAnswer();
-            if (userAnswer.equals(correctAnswer)) {
-                processCorrectAnswer();
-            } else {
-                processWrongAnswer(userAnswer, correctAnswer);
-            }
+            Engine.gameProcess(rulesMessage, question, correctAnswer);
         }
     }
 
-    private int[] createProgression() {
-        int arraySize = engine.getRandomNumber(5, 11);
-        int startNumber = engine.getRandomNumber(10, 50);
-        int delta = engine.getRandomNumber(3, 12);
+    public static int[] createProgression() {
+        int arraySize = Utils.getRandomNumber(MIN_ARRAY_SIZE, MAX_ARRAY_SIZE);
+        int startNumber = Utils.getRandomNumber(MIN_START_NUMBER, MAX_START_NUMBER);
+        int delta = Utils.getRandomNumber(MIN_DELTA, MAX_DELTA);
         int[] progression = new int[arraySize];
         progression[0] = startNumber;
         for (int i = 1; i < arraySize; i++) {
@@ -43,40 +35,14 @@ public class Progression {
         return progression;
     }
 
-    private String getGameRulesMessage() {
-        return "What number is missing in the progression?";
-    }
-
-    private boolean shouldContinueGame() {
-        return countCorrect < MAX_CORRECT && hasNoWrongAnswer;
-    }
-
-    private String getProgressionForQuestion(int[] progression, int hideNumberIndex) {
+    public static String getQuestionMessage(int[] progression, int hideNumberIndex) {
         Object[] stringProgression = new String[progression.length];
         for (int i = 0; i < progression.length; i++) {
             stringProgression[i] = String.valueOf(progression[i]);
         }
-        String HIDDEN_NUMBER = "..";
-        stringProgression[hideNumberIndex] = HIDDEN_NUMBER;
-        String DELIMITER = " ";
-        return StringUtils.joinWith(DELIMITER, stringProgression);
-    }
-
-    private String getQuestionMessage(int[] progression, int hideNumberIndex) {
-        String progressionString = getProgressionForQuestion(progression, hideNumberIndex);
-        return "Question: " + progressionString;
-    }
-
-    private void processCorrectAnswer() {
-        countCorrect++;
-        engine.showCorrectAnswerMessage();
-        if (countCorrect == MAX_CORRECT) {
-            engine.showGameWinMessage();
-        }
-    }
-
-    private void processWrongAnswer(String userAnswer, String correctAnswer) {
-        engine.showWrongAnswerMessage(correctAnswer, userAnswer);
-        hasNoWrongAnswer = false;
+        String hiddenNumber = "..";
+        stringProgression[hideNumberIndex] = hiddenNumber;
+        String delimiter = " ";
+        return StringUtils.joinWith(delimiter, stringProgression);
     }
 }

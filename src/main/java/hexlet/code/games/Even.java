@@ -1,60 +1,16 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
+import hexlet.code.Utils;
 
 public class Even {
-    private final Engine engine;
-    private final int MAX_CORRECT = 3;
-    private int countCorrect = 0;
-    private boolean hasNoWrongAnswer = true;
-
-    public Even(Engine engine) {
-        this.engine = engine;
-    }
-
-    public void startGame() {
-        engine.greetUser();
-        engine.showMessage(getGameRulesMessage());
-        countCorrect = 0;
-        while (shouldContinueGame()) {
-            int randomNumber = engine.getRandomNumber();
-            engine.showMessage(getQuestionMessage(randomNumber));
-            String userAnswer = engine.askUserAnswer();
-            String correctAnswer = getCorrectAnswer(randomNumber);
-            if (correctAnswer.equals(userAnswer)) {
-                processCorrectAnswer();
-            } else {
-                processWrongAnswer(correctAnswer, userAnswer);
-            }
+    public static void startGame() {
+        String rulesMessage = "Answer 'yes' if number even otherwise answer 'no'.";
+        while (Engine.getFlag()) {
+            int number = Utils.getRandomNumber();
+            String question = String.valueOf(number);
+            String correctAnswer = number % 2 == 0 ? "yes" : "no";
+            Engine.gameProcess(rulesMessage, question, correctAnswer);
         }
-    }
-
-    private String getGameRulesMessage() {
-        return "Answer 'yes' if number even otherwise answer 'no'.";
-    }
-
-    private boolean shouldContinueGame() {
-        return countCorrect < MAX_CORRECT && hasNoWrongAnswer;
-    }
-
-    private String getQuestionMessage(int number) {
-        return "Question: " + number;
-    }
-
-    private String getCorrectAnswer(int number) {
-        return (number % 2 == 0) ? "yes" : "no";
-    }
-
-    private void processCorrectAnswer() {
-        countCorrect++;
-        engine.showCorrectAnswerMessage();
-        if (countCorrect == MAX_CORRECT) {
-            engine.showGameWinMessage();
-        }
-    }
-
-    private void processWrongAnswer(String correctAnswer, String userAnswer) {
-        engine.showWrongAnswerMessage(correctAnswer, userAnswer);
-        hasNoWrongAnswer = false;
     }
 }
