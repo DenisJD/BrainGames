@@ -1,69 +1,38 @@
 package hexlet.code;
 
-import java.util.Random;
 import java.util.Scanner;
 
 public class Engine {
-    private final Scanner scanner;
-    private final Random random;
-    private String userName = "";
+    private static int roundCounter = 0;
+    private static boolean flag = true;
+    public static final int MAX_ROUNDS = 3;
 
-    public Engine(Scanner scanner, Random random) {
-        this.scanner = scanner;
-        this.random = random;
+    public static void gameProcess(String rules, String question, String correctAnswer) {
+        Scanner scanner = new Scanner(System.in);
+        if (roundCounter == 0) {
+            Cli.greetings();
+            System.out.println(rules);
+        }
+        System.out.println("Question: " + question);
+        System.out.print("Your answer: ");
+        String userAnswer = scanner.nextLine();
+        if (userAnswer.equals(correctAnswer)) {
+            System.out.println("Correct!");
+            roundCounter++;
+            if (roundCounter == MAX_ROUNDS) {
+                System.out.println("Congratulations, " + Cli.getUserName() + "!");
+                flag = false;
+                scanner.close();
+            }
+        } else {
+            System.out.println("'" + userAnswer + "' is wrong answer ;(. Correct answer was '" + correctAnswer + "'");
+            System.out.println("Let's try again, " + Cli.getUserName() + "!");
+            flag = false;
+            scanner.close();
+        }
     }
 
-    public void greetUser() {
-        String welcomeMessage = "\nWelcome to the Brain Games!";
-        showMessage(welcomeMessage);
-        String message = "May I have your name? ";
-        System.out.print(message);
-        userName = scanner.nextLine();
-        showMessage("Hello, " + userName + "!");
-    }
-
-    public String askUserAnswer() {
-        System.out.print(getYourAnswerMessage());
-        return scanner.nextLine();
-    }
-
-    private String getYourAnswerMessage() {
-        return "Your answer: ";
-    }
-
-    public void showMessage(String message) {
-        System.out.println(message);
-    }
-
-    public void showCorrectAnswerMessage() {
-        showMessage("Correct!");
-    }
-
-    public void showWrongAnswerMessage(String correctAnswer, String userAnswer) {
-        String message = "'"
-                + userAnswer + "' is wrong answer ;(. Correct answer was '"
-                + correctAnswer
-                + "'"
-                + "\n"
-                + "Let's try again, " + userName + "!";
-        showMessage(message);
-    }
-
-    public void showGameWinMessage() {
-        showMessage("Congratulations, " + userName + "!");
-    }
-
-    public int getRandomNumber() {
-        int maxRandomNumber = 100;
-        return random.nextInt(maxRandomNumber);
-    }
-
-    /**
-     * @param from from inclusive
-     * @param to   to exclusive
-     * @return random number in range from...to
-     */
-    public int getRandomNumber(int from, int to) {
-        return random.nextInt(from, to);
+    public static boolean getFlag() {
+        return flag;
     }
 }
