@@ -1,13 +1,21 @@
 package hexlet.code;
 
-public class Cli {
-    private final Engine engine;
+import java.util.Scanner;
 
-    public Cli(Engine engine) {
-        this.engine = engine;
+public class Cli {
+    private static String userName = "";
+
+    public static void greetings() {
+        Scanner scanner = new Scanner(System.in);
+        String welcomeMessage = "\nWelcome to the Brain Games!";
+        System.out.println((welcomeMessage));
+        String message = "May I have your name? ";
+        System.out.print(message);
+        userName = scanner.nextLine();
+        System.out.println(("Hello, " + userName + "!"));
     }
 
-    public void greetings() {
-        engine.greetUser();
+    public static String getUserName() {
+        return userName;
     }
 }
