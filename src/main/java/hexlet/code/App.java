@@ -22,9 +22,8 @@ public class App {
             case "4" -> GCD.startGame();
             case "5" -> Progression.startGame();
             case "6" -> Prime.startGame();
-            case "0" -> {
-            }
-            default -> System.out.println("'" + choice + "'" + " is wrong game number :(");
+            case "0" -> System.exit(0);
+            default -> System.out.println("'" + choice + "'" + " is a wrong game number :(");
         }
         scanner.close();
     }
