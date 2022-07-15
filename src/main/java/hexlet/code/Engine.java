@@ -3,36 +3,40 @@ package hexlet.code;
 import java.util.Scanner;
 
 public class Engine {
-    private static int roundCounter = 0;
-    private static boolean flag = true;
     public static final int MAX_ROUNDS = 3;
+    public static final int QUESTION = 0;
+    public static final int ANSWER = 1;
 
-    public static void gameProcess(String rules, String question, String correctAnswer) {
+    public static void runGame(String rules, String[][] questionsAndAnswers) {
         Scanner scanner = new Scanner(System.in);
-        if (roundCounter == 0) {
-            Cli.greetings();
-            System.out.println(rules);
-        }
-        System.out.println("Question: " + question);
-        System.out.print("Your answer: ");
-        String userAnswer = scanner.nextLine();
-        if (userAnswer.equals(correctAnswer)) {
-            System.out.println("Correct!");
-            roundCounter++;
-            if (roundCounter == MAX_ROUNDS) {
-                System.out.println("Congratulations, " + Cli.getUserName() + "!");
-                flag = false;
-                scanner.close();
+        String welcomeMessage = "\nWelcome to the Brain Games!";
+        String message = "May I have your name? ";
+        System.out.println(welcomeMessage);
+        System.out.print(message);
+        String userName = scanner.nextLine();
+        System.out.println(("Hello, " + userName + "!"));
+        System.out.println(rules);
+        for (int i = 0; i < MAX_ROUNDS; i++) {
+            System.out.println("Question: " + questionsAndAnswers[i][QUESTION]);
+            if (questionsAndAnswers[i][ANSWER].contains("is no logic for")) {
+                System.out.println(questionsAndAnswers[i][ANSWER]);
+                // Also you can use "continue" to counting (pass) this round and continue the game.
+                // continue;
+                return;
             }
-        } else {
-            System.out.println("'" + userAnswer + "' is wrong answer ;(. Correct answer was '" + correctAnswer + "'");
-            System.out.println("Let's try again, " + Cli.getUserName() + "!");
-            flag = false;
-            scanner.close();
+            System.out.print("Your answer: ");
+            String userAnswer = scanner.nextLine();
+            if (userAnswer.equals(questionsAndAnswers[i][ANSWER])) {
+                System.out.println("Correct!");
+            } else {
+                System.out.println("'" + userAnswer + "' is wrong answer ;(. "
+                        + "Correct answer was '" + questionsAndAnswers[i][ANSWER] + "'");
+                System.out.println("Let's try again, " + userName + "!");
+                return;
+            }
         }
-    }
-
-    public static boolean getFlag() {
-        return flag;
+        System.out.println("Congratulations, " + userName + "!");
+        scanner.close();
     }
 }
+
