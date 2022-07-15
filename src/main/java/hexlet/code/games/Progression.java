@@ -5,6 +5,8 @@ import hexlet.code.Utils;
 import org.apache.commons.lang3.StringUtils;
 
 public class Progression {
+    private static final String[][] QUESTIONS_AND_ANSWERS = new String[Engine.MAX_ROUNDS][2];
+    public static final String RULES_MESSAGE = "What number is missing in the progression?";
     public static final int MIN_ARRAY_SIZE = 5;
     public static final int MAX_ARRAY_SIZE = 11;
     public static final int MIN_START_NUMBER = 10;
@@ -13,14 +15,13 @@ public class Progression {
     public static final int MAX_DELTA = 12;
 
     public static void startGame() {
-        String rulesMessage = "What number is missing in the progression?";
-        while (Engine.getFlag()) {
+        for (int i = 0; i < Engine.MAX_ROUNDS; i++) {
             int[] progression = createProgression();
             int hideNumberIndex = Utils.getRandomNumber(0, progression.length);
-            String question = getQuestionMessage(progression, hideNumberIndex);
-            String correctAnswer = String.valueOf(progression[hideNumberIndex]);
-            Engine.gameProcess(rulesMessage, question, correctAnswer);
+            QUESTIONS_AND_ANSWERS[i][Engine.QUESTION] = getQuestionMessage(progression, hideNumberIndex);
+            QUESTIONS_AND_ANSWERS[i][Engine.ANSWER] = String.valueOf(progression[hideNumberIndex]);
         }
+        Engine.runGame(RULES_MESSAGE, QUESTIONS_AND_ANSWERS);
     }
 
     public static int[] createProgression() {
