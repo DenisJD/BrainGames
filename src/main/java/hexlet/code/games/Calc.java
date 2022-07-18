@@ -5,7 +5,7 @@ import hexlet.code.Utils;
 
 public class Calc {
     private static final String[][] QUESTIONS_AND_ANSWERS = new String[Engine.MAX_ROUNDS][2];
-    private static final String[] MATH_OPERATORS = {"+", "-", "*", "/", "ab"};
+    private static final String[] MATH_OPERATORS = {"+", "-", "*"};
     public static final String RULES_MESSAGE = "What is the result of the expression?";
     public static final int MIN_RANDOM_NUMBER = 0;
     public static final int MAX_RANDOM_NUMBER = 101;
