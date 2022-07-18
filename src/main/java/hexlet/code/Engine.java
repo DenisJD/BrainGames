@@ -18,12 +18,6 @@ public class Engine {
         System.out.println(rules);
         for (int i = 0; i < MAX_ROUNDS; i++) {
             System.out.println("Question: " + questionsAndAnswers[i][QUESTION]);
-            if (questionsAndAnswers[i][ANSWER].contains("is no logic for")) {
-                System.out.println(questionsAndAnswers[i][ANSWER]);
-                // Also you can use "continue" to counting (pass) this round and continue the game.
-                // continue;
-                return;
-            }
             System.out.print("Your answer: ");
             String userAnswer = scanner.nextLine();
             if (userAnswer.equals(questionsAndAnswers[i][ANSWER])) {

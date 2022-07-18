@@ -19,6 +19,9 @@ public class Prime {
     }
 
     public static boolean isNumberPrime(int a) {
+        if (a < 2) {
+            return false;
+        }
         for (int i = 2; i < a; i++) {
             if (a % i == 0) {
                 return false;
@@ -28,9 +31,6 @@ public class Prime {
     }
 
     public static String getCorrectAnswer(int a) {
-        if (isNumberPrime(a)) {
-            return "yes";
-        }
-        return "no";
+        return isNumberPrime(a) ? "yes" : "no";
     }
 }

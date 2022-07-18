@@ -14,7 +14,7 @@ public class GCD {
             int firstNumber = Utils.getRandomNumber(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
             int secondNumber = Utils.getRandomNumber(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
             QUESTIONS_AND_ANSWERS[i][Engine.QUESTION] = firstNumber + " " + secondNumber;
-            QUESTIONS_AND_ANSWERS[i][Engine.ANSWER] = getCorrectAnswer(firstNumber, secondNumber);
+            QUESTIONS_AND_ANSWERS[i][Engine.ANSWER] = String.valueOf(getGCD(firstNumber, secondNumber));
         }
         Engine.runGame(RULES_MESSAGE, QUESTIONS_AND_ANSWERS);
     }
@@ -24,10 +24,6 @@ public class GCD {
             return a;
         }
         return getGCD(b, a % b);
-    }
-
-    public static String getCorrectAnswer(int a, int b) {
-        return String.valueOf(getGCD(a, b));
     }
 }
 

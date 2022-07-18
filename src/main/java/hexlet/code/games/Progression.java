@@ -16,7 +16,10 @@ public class Progression {
 
     public static void startGame() {
         for (int i = 0; i < Engine.MAX_ROUNDS; i++) {
-            int[] progression = createProgression();
+            int arraySize = Utils.getRandomNumber(MIN_ARRAY_SIZE, MAX_ARRAY_SIZE);
+            int startNumber = Utils.getRandomNumber(MIN_START_NUMBER, MAX_START_NUMBER);
+            int delta = Utils.getRandomNumber(MIN_DELTA, MAX_DELTA);
+            int[] progression = createProgression(arraySize, startNumber, delta);
             int hideNumberIndex = Utils.getRandomNumber(0, progression.length);
             QUESTIONS_AND_ANSWERS[i][Engine.QUESTION] = getQuestionMessage(progression, hideNumberIndex);
             QUESTIONS_AND_ANSWERS[i][Engine.ANSWER] = String.valueOf(progression[hideNumberIndex]);
@@ -24,14 +27,10 @@ public class Progression {
         Engine.runGame(RULES_MESSAGE, QUESTIONS_AND_ANSWERS);
     }
 
-    public static int[] createProgression() {
-        int arraySize = Utils.getRandomNumber(MIN_ARRAY_SIZE, MAX_ARRAY_SIZE);
-        int startNumber = Utils.getRandomNumber(MIN_START_NUMBER, MAX_START_NUMBER);
-        int delta = Utils.getRandomNumber(MIN_DELTA, MAX_DELTA);
+    public static int[] createProgression(int arraySize, int startNumber, int delta) {
         int[] progression = new int[arraySize];
-        progression[0] = startNumber;
-        for (int i = 1; i < arraySize; i++) {
-            progression[i] = progression[i - 1] + delta;
+        for (int i = 0; i < arraySize; i++) {
+            progression[i] = startNumber + delta * (i - 1);
         }
         return progression;
     }
