@@ -13,12 +13,16 @@ public class Even {
         for (int i = 0; i < Engine.MAX_ROUNDS; i++) {
             int number = Utils.getRandomNumber(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
             QUESTIONS_AND_ANSWERS[i][Engine.QUESTION] = String.valueOf(number);
-            QUESTIONS_AND_ANSWERS[i][Engine.ANSWER] = isNumberEven(number);
+            QUESTIONS_AND_ANSWERS[i][Engine.ANSWER] = getCorrectAnswer(number);
         }
         Engine.runGame(RULES_MESSAGE, QUESTIONS_AND_ANSWERS);
     }
 
-    public static String isNumberEven(int number) {
-        return number % 2 == 0 ? "yes" : "no";
+    public static boolean isNumberEven(int number) {
+        return number % 2 == 0;
+    }
+
+    public static String getCorrectAnswer(int number) {
+        return isNumberEven(number) ? "yes" : "no";
     }
 }
