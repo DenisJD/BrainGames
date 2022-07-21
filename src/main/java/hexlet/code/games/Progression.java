@@ -5,7 +5,6 @@ import hexlet.code.Utils;
 import org.apache.commons.lang3.StringUtils;
 
 public class Progression {
-    private static final String[][] QUESTIONS_AND_ANSWERS = new String[Engine.MAX_ROUNDS][2];
     public static final String RULES_MESSAGE = "What number is missing in the progression?";
     public static final int MIN_ARRAY_SIZE = 5;
     public static final int MAX_ARRAY_SIZE = 11;
@@ -15,16 +14,17 @@ public class Progression {
     public static final int MAX_DELTA = 12;
 
     public static void startGame() {
+        String[][] questionsAndAnswers = new String[Engine.MAX_ROUNDS][2];
         for (int i = 0; i < Engine.MAX_ROUNDS; i++) {
             int arraySize = Utils.getRandomNumber(MIN_ARRAY_SIZE, MAX_ARRAY_SIZE);
             int startNumber = Utils.getRandomNumber(MIN_START_NUMBER, MAX_START_NUMBER);
             int delta = Utils.getRandomNumber(MIN_DELTA, MAX_DELTA);
             int[] progression = createProgression(arraySize, startNumber, delta);
             int hideNumberIndex = Utils.getRandomNumber(0, progression.length);
-            QUESTIONS_AND_ANSWERS[i][Engine.QUESTION] = getQuestionMessage(progression, hideNumberIndex);
-            QUESTIONS_AND_ANSWERS[i][Engine.ANSWER] = String.valueOf(progression[hideNumberIndex]);
+            questionsAndAnswers[i][Engine.QUESTION] = getQuestionMessage(progression, hideNumberIndex);
+            questionsAndAnswers[i][Engine.ANSWER] = String.valueOf(progression[hideNumberIndex]);
         }
-        Engine.runGame(RULES_MESSAGE, QUESTIONS_AND_ANSWERS);
+        Engine.runGame(RULES_MESSAGE, questionsAndAnswers);
     }
 
     public static int[] createProgression(int arraySize, int startNumber, int delta) {

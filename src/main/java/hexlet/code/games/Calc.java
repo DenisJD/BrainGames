@@ -4,21 +4,21 @@ import hexlet.code.Engine;
 import hexlet.code.Utils;
 
 public class Calc {
-    private static final String[][] QUESTIONS_AND_ANSWERS = new String[Engine.MAX_ROUNDS][2];
-    private static final String[] MATH_OPERATORS = {"+", "-", "*"};
     public static final String RULES_MESSAGE = "What is the result of the expression?";
+    private static final String[] MATH_OPERATORS = {"+", "-", "*"};
     public static final int MIN_RANDOM_NUMBER = 0;
     public static final int MAX_RANDOM_NUMBER = 101;
 
     public static void startGame() {
+        String[][] questionsAndAnswers = new String[Engine.MAX_ROUNDS][2];
         for (int i = 0; i < Engine.MAX_ROUNDS; i++) {
             int firstNum = Utils.getRandomNumber(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
             int secondNum = Utils.getRandomNumber(MIN_RANDOM_NUMBER, MAX_RANDOM_NUMBER);
             String mathOperator = getMathOperator(MATH_OPERATORS);
-            QUESTIONS_AND_ANSWERS[i][Engine.QUESTION] = firstNum + " " + mathOperator + " " + secondNum;
-            QUESTIONS_AND_ANSWERS[i][Engine.ANSWER] = String.valueOf(calculate(mathOperator, firstNum, secondNum));
+            questionsAndAnswers[i][Engine.QUESTION] = firstNum + " " + mathOperator + " " + secondNum;
+            questionsAndAnswers[i][Engine.ANSWER] = String.valueOf(calculate(mathOperator, firstNum, secondNum));
         }
-        Engine.runGame(RULES_MESSAGE, QUESTIONS_AND_ANSWERS);
+        Engine.runGame(RULES_MESSAGE, questionsAndAnswers);
     }
 
     public static String getMathOperator(String[] mathOperators) {
