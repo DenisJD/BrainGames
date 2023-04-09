@@ -3,7 +3,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/26ed564abf4de430cc89/maintainability)](https://codeclimate.com/github/DenisJD/java-project-lvl1/maintainability)
 
 #### Description:
-#### Brian Games is a console application is a set of five games with a dedicated engine, which allows you to add new games quickly and without duplicating code.
+#### Brain Games is a console application is a set of five games with a dedicated engine, which allows you to add new games quickly and without duplicating code.
 
 ### 1 - Greet
 ![Image alt](https://github.com/DenisJD/images/raw/main/Greet.png)
